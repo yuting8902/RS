@@ -1,0 +1,9 @@
+torch==2.5.1
+torchvision==0.20.1
+numpy==1.26.4
+scipy==1.15.3
+Pillow==11.3.0
+PyYAML>=6.0,<7
+pandas==2.2.0
+tqdm==4.67.1
+# torch/torchvision CUDA wheels must be compatible with the server's CUDA driver.

@@ -1,0 +1,54 @@
+experiment:
+  seed: 42
+  run_name: stage1_coverage_stage2_gate
+
+selection:
+  mode: two_stage  # two_stage | coverage_only | random_only | random_gate | residual_only
+  max_new_images_per_class: 8   # bootstrap additions count against this limit
+  resume: true
+
+feature:
+  variant: a1_adapted_final
+  image_size: 672
+  cache_dtype: float32
+  inference_batch_size: 1
+
+augmentation:
+  enabled: false   # v1 intentionally forbids augmentation
+  count: 0
+  method: rotate
+
+pca:
+  mode: fixed        # fixed | explained_variance
+  fixed_dim: 600
+  explained_variance: 0.99
+  whiten: false
+  drop_k: 0
+  eigen_device: auto # auto | cpu | cuda
+
+bootstrap:
+  enabled: auto
+  method: random     # random | coverage
+  min_images: 3
+
+stage1:
+  score: mean
+  compute_device: auto
+  compute_dtype: float16  # float16 speed; float32 for higher numerical fidelity
+  reference_chunk_size: 2048
+  candidate_chunk_size: 2304
+  cache_mode: auto  # auto | precompute | stream
+  disk_budget_gib: 48
+  stop_epsilon: null
+  monitor_self_coverage: true
+
+stage2:
+  gate_metric: mean # mean | p90 | high_error_ratio
+  delta_min: 0.0001
+  ratio_quantile: 0.95
+  ratio_threshold: null
+  min_reference_images: 1
+  reject_if_worse_p95_fraction: null  # monitor only unless set
+
+output:
+  export_on_every_checkpoint: false

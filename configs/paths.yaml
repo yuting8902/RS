@@ -1,0 +1,21 @@
+# Edit this file for real server paths. No source or output images are moved into the project.
+model:
+  dino_repo_path: /workspace/Venessa/dinov2
+  dino_weight_path: /workspace/model_weight/dinov2_vitl14_reg4_pretrain.pth
+  anomalyvfm_ckpt: /workspace/Venessa/AnomalyVFM_/pretrained_models/anomalyvfm_dinov2.pkl
+
+data:
+  initial_train_root: /workspace/data/develop
+  candidate_root: /workspace/data/candidates
+  reference_good_root: /workspace/data/develop
+  initial_subdir: train/good
+  reference_subdir: val/good
+  classes: auto
+  label_manifest: null
+  # CAUTION: turn on ONLY if candidate images have been independently verified normal.
+  assume_candidates_verified_good: false
+
+output:
+  root: ./outputs
+  cache_root: ./cache
+  image_export: copy  # copy or symlink
